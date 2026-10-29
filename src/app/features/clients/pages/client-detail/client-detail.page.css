@@ -1,0 +1,802 @@
+:host {
+  display: block;
+  min-height: 100%;
+}
+
+/* ==========================================
+   1. LAYOUT PRINCIPAL Y CABECERA
+   ========================================== */
+
+.client-create-page {
+  min-height: 100%;
+  padding: 22px 20px 28px;
+  background: radial-gradient(circle at top left, rgba(244, 250, 249, 0.95), transparent 34%),
+    linear-gradient(180deg, #fbfefe 0%, #eef7f6 100%);
+  color: #203b40;
+}
+
+.client-create-page__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  max-width: 1040px;
+  margin: 0 auto 34px;
+}
+
+.client-create-page__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: #587177;
+  font-size: 0.86rem;
+  font-weight: 500;
+}
+
+.client-create-page__action {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid #748e92;
+  background: #ffffff;
+  color: #203b40;
+  border-radius: 12px;
+  height: 30px;
+  padding: 0 14px;
+  font-weight: 500;
+  box-shadow: 0 8px 18px rgba(31, 63, 68, 0.08);
+  cursor: pointer;
+}
+
+.client-detail-page__shell {
+  display: grid;
+  grid-template-columns: minmax(0, 0.86fr) minmax(0, 1.14fr);
+  gap: 44px;
+  max-width: 1040px;
+  margin: 0 auto;
+  align-items: start;
+}
+
+.client-column {
+  position: sticky;
+  top: 20px;
+}
+
+.pets-column {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-content: start;
+}
+
+.pets-column__header h2 {
+  margin: 0 0 6px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #162f34;
+}
+
+.pets-scroll-container {
+  max-height: calc(100vh - 160px);
+  overflow-y: auto;
+  padding-right: 6px;
+  border-radius: 12px;
+}
+
+.pets-scroll-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.pets-scroll-container::-webkit-scrollbar-track {
+  background: rgba(226, 232, 240, 0.5);
+  border-radius: 6px;
+}
+
+.pets-scroll-container::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 6px;
+}
+
+.pets-scroll-container::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+.form-card,
+.pet-card {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid #d6e0e2;
+  border-radius: 18px;
+  box-shadow: 0 8px 18px rgba(31, 63, 68, 0.16);
+  padding: 18px 20px;
+  backdrop-filter: blur(4px);
+}
+
+.form-card h2,
+.pet-card h2 {
+  margin: 0 0 12px;
+  font-size: 1.04rem;
+  font-weight: 700;
+  color: #162f34;
+}
+
+/* ==========================================
+   2. TARJETA: DETALLE Y EDICIÓN DE CLIENTE
+   ========================================== */
+
+.detail-field {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(207, 218, 220, 0.75);
+  font-size: 0.9rem;
+}
+
+.detail-field span {
+  color: #5f7074;
+  min-width: 130px;
+  font-weight: 500;
+}
+
+.detail-field strong {
+  margin: 0;
+  color: #203b40;
+  text-align: right;
+  font-weight: 600;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px 12px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  margin-left: auto;
+  letter-spacing: 0.02em;
+}
+
+.status-badge--success {
+  background: #dcfce7;
+  color: #15803d;
+  border: 1px solid #86efac;
+}
+
+.status-badge--warning {
+  background: #fef3c7;
+  color: #b45309;
+  border: 1px solid #fde68a;
+}
+
+.detail-form {
+  display: grid;
+  gap: 12px;
+}
+
+.detail-form label {
+  display: grid;
+  gap: 6px;
+  font-size: 0.9rem;
+  color: #41555a;
+}
+
+.detail-form input {
+  height: 38px;
+  border-radius: 10px;
+  border: 1px solid #c6d2d5;
+  padding: 0 12px;
+  font: inherit;
+  color: #203b40;
+}
+
+/* ==========================================
+   3. TARJETAS: LISTADO DE MASCOTAS
+   ========================================== */
+
+.pets-grid-detail {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 16px;
+  width: 100%;
+}
+
+.pet-card-fancy {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.pet-card-fancy:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  border-color: #cbd5e1;
+}
+
+.pet-card-fancy__banner {
+  background: #52c7b8;
+  /* Minty teal green */
+  height: 110px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pet-card-fancy__emoji {
+  font-size: 3.5rem;
+}
+
+.pet-card-fancy__gender {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(255, 255, 255, 0.85);
+  color: #1e293b;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.pet-card-fancy__content {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.pet-card-fancy__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.pet-card-fancy__title {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.pet-card-fancy__title h3 {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #0f172a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pet-card-fancy__breed {
+  font-size: 0.78rem;
+  color: #64748b;
+  margin-top: 2px;
+}
+
+.pet-action-btns {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.pet-action-btn {
+  background: transparent;
+  border: 1px solid currentColor;
+  border-radius: 6px;
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  transition: background-color 0.15s, opacity 0.15s;
+}
+
+.pet-action-btn:hover {
+  opacity: 0.85;
+}
+
+.pet-action-btn--edit {
+  color: #f59e0b;
+  /* Amber/Orange */
+  border-color: #f59e0b;
+}
+
+.pet-action-btn--edit:hover {
+  background-color: #fffbeb;
+}
+
+.pet-action-btn--delete {
+  color: #ef4444;
+  /* Red */
+  border-color: #ef4444;
+}
+
+.pet-action-btn--delete:hover {
+  background-color: #fef2f2;
+}
+
+.pet-action-btn svg {
+  width: 14px;
+  height: 14px;
+  display: block;
+}
+
+.pet-card-fancy__chips {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.pet-chip-info {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  color: #334155;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 100px;
+}
+
+.pet-card-fancy__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #f1f5f9;
+  padding-top: 12px;
+  margin-top: auto;
+}
+
+.pet-card-fancy__owner {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #64748b;
+  font-size: 0.78rem;
+  font-weight: 500;
+  min-width: 0;
+}
+
+.pet-card-fancy__owner svg {
+  width: 13px;
+  height: 13px;
+  color: #94a3b8;
+  flex-shrink: 0;
+}
+
+.pet-card-fancy__owner span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pet-history-btn {
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  color: #0d9488;
+  padding: 4px;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  transition: background-color 0.15s, color 0.15s;
+}
+
+.pet-history-btn:hover {
+  background-color: #f0fdfa;
+  color: #0f766e;
+}
+
+.pet-history-btn svg {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+
+.pet-summary {
+  display: grid;
+  gap: 6px;
+}
+
+/* ==========================================
+   4. SISTEMA GLOBAL DE BOTONES
+   ========================================== */
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.btn-secondary,
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 34px;
+  padding: 0 16px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  border: 0;
+  min-width: 92px;
+}
+
+.btn-secondary {
+  background: #ffffff;
+  color: #5b6b70;
+  border: 1px solid #d0d8da;
+}
+
+.btn-primary {
+  background: #103f45;
+  color: #f6fbfb;
+  box-shadow: 0 8px 18px rgba(16, 63, 69, 0.24);
+}
+
+.client-create-page__back svg,
+.client-create-page__action svg,
+.btn-secondary svg,
+.btn-primary svg {
+  width: 16px;
+  height: 16px;
+  display: block;
+}
+
+.client-detail-page--empty {
+  display: grid;
+  place-items: center;
+  gap: 16px;
+  text-align: center;
+}
+
+/* ==========================================
+   5. MODAL EMERGENTE (Formulario Mascotas)
+   ========================================== */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  animation: fadeIn 0.15s ease-in-out;
+}
+
+.modal-container--form {
+  background-color: #ffffff;
+  width: 90%;
+  max-width: 620px;
+  padding: 28px 32px;
+  border-radius: 20px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  animation: scaleUp 0.15s ease-in-out;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.modal-header .modal-title {
+  color: #162f34;
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.modal-close-btn {
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  line-height: 1;
+  color: #9ca3af;
+  cursor: pointer;
+}
+
+.modal-close-btn:hover {
+  color: #111827;
+}
+
+.pet-create-form__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.pet-create-form__full {
+  grid-column: 1 / -1;
+}
+
+.pet-create-form__grid label {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 0.86rem;
+  font-weight: 500;
+  color: #41555a;
+}
+
+.pet-create-form__grid input,
+.pet-create-form__grid select,
+.pet-create-form__grid textarea {
+  height: 38px;
+  padding: 0 12px;
+  border: 1px solid #c6d2d5;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-family: Inter;
+  background-color: #ffffff;
+  color: #203b40;
+  outline: none;
+  transition: all 0.15s ease;
+}
+
+.pet-create-form__grid textarea {
+  height: auto;
+  min-height: 72px;
+  padding-block: 10px;
+  resize: vertical;
+}
+
+.pet-create-form__grid select:invalid,
+.pet-create-form__grid select option[value=""] {
+  color: #9ca3af;
+}
+
+.pet-create-form__grid input:focus,
+.pet-create-form__grid select:focus,
+.pet-create-form__grid textarea:focus {
+  border-color: #103f45;
+  box-shadow: 0 0 0 2px rgba(16, 63, 69, 0.15);
+}
+
+.modal-container--form .form-actions {
+  margin-top: 24px;
+  width: 100%;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleUp {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.modal-container--confirm {
+  /* Estas 6 líneas eran las que faltaban: */
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  animation: scaleUp 0.15s ease-in-out;
+
+  /* Las que ya tenías: */
+  width: 90%;
+  max-width: 420px;
+  padding: 36px 32px;
+  align-items: center;
+  text-align: center;
+}
+
+.modal-icon {
+  margin-bottom: 16px;
+}
+
+.modal-icon svg {
+  width: 68px;
+  height: 68px;
+  color: #b91c1c;
+  stroke-width: 1.5;
+}
+
+.modal-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #b91c1c;
+  margin: 0;
+}
+
+.modal-subtitle {
+  font-size: 0.95rem;
+  color: #4b5563;
+  margin: 8px 0 28px 0;
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+  justify-content: center;
+}
+
+.btn-cancel,
+.btn-confirm {
+  display: inline-block;
+  padding: 11px 28px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  height: auto;
+  min-width: 0;
+}
+
+.btn-cancel {
+  background-color: #ffffff;
+  color: #374151;
+  border: 1px solid #d1d5db;
+}
+
+.btn-cancel:hover {
+  background-color: #f3f4f6;
+}
+
+.btn-confirm {
+  background-color: #b91c1c;
+  color: #ffffff;
+  border: none;
+  box-shadow: 0 4px 12px rgba(185, 28, 28, 0.2);
+}
+
+.btn-confirm:hover {
+  background-color: #991b1b;
+}
+
+/* ==========================================
+   6. RESPONSIVE / MOBILE
+   ========================================== */
+
+@media (max-width: 940px) {
+  .client-detail-page__shell {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+}
+
+@media (max-width: 640px) {
+  .client-create-page {
+    padding: 14px;
+  }
+
+  .client-create-page__header,
+  .form-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .client-create-page__action,
+  .btn-secondary,
+  .btn-primary {
+    width: 100%;
+  }
+
+  .pet-create-form__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================
+   7. DETALLE INLINE DE MASCOTA
+   ========================================== */
+
+.pet-card-fancy__image {
+  max-height: 90px;
+  max-width: 90px;
+  object-fit: contain;
+}
+
+/* inputs-grid style identical to pet-form.page.css */
+.inputs-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.full-width {
+  grid-column: 1 / -1;
+}
+
+.inputs-grid label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+.inputs-grid input,
+.inputs-grid select,
+.inputs-grid textarea {
+  height: 40px;
+  padding: 0 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-family: Inter;
+  color: #111827;
+  background: #fff;
+  outline: none;
+}
+
+.inputs-grid textarea {
+  height: auto;
+  padding-block: 10px;
+  resize: vertical;
+}
+
+.inputs-grid input:focus,
+.inputs-grid select:focus,
+.inputs-grid textarea:focus {
+  border-color: #102a2d;
+  box-shadow: 0 0 0 3px rgba(16, 42, 45, 0.12);
+}
+
+.inputs-grid input:disabled,
+.inputs-grid select:disabled,
+.inputs-grid textarea:disabled {
+  background-color: #f3f4f6;
+  color: #6b7280;
+  cursor: not-allowed;
+  border-color: #e5e7eb;
+}
+
+/* Grilla para el detalle de mascota en modo lectura */
+.pet-detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 32px;
+  row-gap: 4px;
+  width: 100%;
+}

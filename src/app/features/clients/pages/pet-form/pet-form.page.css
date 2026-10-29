@@ -1,0 +1,195 @@
+:host {
+  display: block;
+  min-height: 100%;
+}
+
+.pet-form-page {
+  min-height: 100%;
+  padding: 22px 20px 40px;
+  background: radial-gradient(circle at top left, rgba(244, 250, 249, 0.95), transparent 34%),
+    linear-gradient(180deg, #fbfefe 0%, #eef7f6 100%);
+  color: #203b40;
+}
+
+.page-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  max-width: 1080px;
+  margin: 0 auto 28px;
+}
+
+.page-header h1 {
+  font-size: 1.6rem;
+  font-weight: 800;
+  margin: 0;
+  color: #102a2d;
+}
+
+.btn-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  color: #587177;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.btn-back:hover {
+  color: #102a2d;
+}
+
+.btn-back svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* GRILLA MAESTRA (Izquierda angosta, Derecha ancha) */
+.form-layout {
+  display: grid;
+  grid-template-columns: minmax(280px, 1fr) minmax(450px, 1.5fr);
+  gap: 32px;
+  max-width: 1080px;
+  margin: 0 auto;
+  align-items: start;
+}
+
+.card {
+  background: #ffffff;
+  border: 1px solid #d6e0e2;
+  border-radius: 24px;
+  padding: 26px 30px;
+  box-shadow: 0 10px 25px rgba(31, 63, 68, 0.06);
+}
+
+.card h2 {
+  margin: 0 0 20px;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #102a2d;
+}
+
+/* ESTILO COLUMNA CLIENTE */
+.readonly-field {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid #f3f4f6;
+  font-size: 0.92rem;
+}
+
+.readonly-field:last-child {
+  border-bottom: none;
+}
+
+.readonly-field span {
+  color: #6b7280;
+}
+
+.readonly-field strong {
+  color: #111827;
+  text-align: right;
+}
+
+/* ESTILO COLUMNA MASCOTA */
+.inputs-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.full-width {
+  grid-column: 1 / -1;
+}
+
+.inputs-grid label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+.inputs-grid input,
+.inputs-grid select,
+.inputs-grid textarea {
+  height: 40px;
+  padding: 0 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-family: Inter;
+  color: #111827;
+  background: #fff;
+  outline: none;
+}
+
+.inputs-grid textarea {
+  height: auto;
+  padding-block: 10px;
+  resize: vertical;
+}
+
+.inputs-grid select:invalid,
+.inputs-grid select option[value=""] {
+  color: #9ca3af;
+}
+
+.inputs-grid input:focus,
+.inputs-grid select:focus,
+.inputs-grid textarea:focus {
+  border-color: #102a2d;
+  box-shadow: 0 0 0 3px rgba(16, 42, 45, 0.12);
+}
+
+/* FOOTER GENERAL DE PÁGINA */
+.page-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  max-width: 1080px;
+  margin: 32px auto 0;
+}
+
+.btn-secondary,
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 42px;
+  padding: 0 24px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 0.92rem;
+  cursor: pointer;
+  border: 0;
+}
+
+.btn-secondary {
+  background: #fff;
+  color: #4b5563;
+  border: 1px solid #d1d5db;
+}
+
+.btn-primary {
+  background: #102a2d;
+  color: #fff;
+}
+
+.btn-primary svg {
+  width: 16px;
+  height: 16px;
+}
+
+@media (max-width: 860px) {
+  .form-layout {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}

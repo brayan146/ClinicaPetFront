@@ -1,0 +1,363 @@
+:host {
+  display: block;
+  min-height: 100%;
+}
+
+/* ==========================================
+   LAYOUT PRINCIPAL
+   ========================================== */
+.citas-page {
+  min-height: 100%;
+  padding: 22px 20px 28px;
+  background: radial-gradient(circle at top left, rgba(244, 250, 249, 0.95), transparent 34%),
+              linear-gradient(180deg, #fbfefe 0%, #eef7f6 100%);
+  color: #203b40;
+}
+
+.citas-page__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  max-width: 1040px;
+  margin: 0 auto 20px;
+}
+
+.citas-page__header h1 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #000000;
+  margin: 0;
+}
+
+/* ==========================================
+   TOOLBAR Y FILTROS
+   ========================================== */
+.citas-toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 1040px;
+  margin: 0 auto 20px;
+}
+
+.citas-toolbar__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.citas-toolbar__filters {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  background: #f8fafc;
+  padding: 10px 16px;
+  border-radius: 14px;
+  border: 1px solid #e2e8f0;
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.filter-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #103f45;
+}
+
+.filter-date-input,
+.filter-select {
+  height: 36px;
+  padding: 0 10px;
+  border-radius: 10px;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  color: #1e293b;
+  font-size: 0.85rem;
+  outline: none;
+  transition: all 0.15s ease;
+}
+
+.filter-date-input:focus,
+.filter-select:focus {
+  border-color: #103f45;
+  box-shadow: 0 0 0 3px rgba(16, 63, 69, 0.1);
+}
+
+.btn-reset-filters {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 36px;
+  padding: 0 14px;
+  border-radius: 10px;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  color: #475569;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-left: auto;
+  transition: all 0.15s ease;
+}
+
+.btn-reset-filters:hover {
+  background-color: #f1f5f9;
+  border-color: #94a3b8;
+  color: #0f172a;
+}
+
+.btn-reset-filters svg {
+  width: 14px;
+  height: 14px;
+}
+
+.citas-search input {
+  height: 38px;
+  width: 320px;
+  padding: 0 14px;
+  border-radius: 12px;
+  border: 1px solid #cbd5e1;
+  font-size: 0.9rem;
+  outline: none;
+  background: #ffffff;
+  transition: border-color 0.15s ease;
+}
+
+.citas-search input:focus {
+  border-color: #103f45;
+  box-shadow: 0 0 0 3px rgba(16, 63, 69, 0.1);
+}
+
+/* Leyenda explicativa de colores */
+.citas-legend {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.legend-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.legend-chip--vacuna {
+  background: #e0f2fe;
+  color: #0369a1;
+  border: 1px solid #38bdf8;
+}
+
+.legend-chip--vacuna .legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #0284c7;
+}
+
+.legend-chip--desparasitacion {
+  background: #f3e8ff;
+  color: #6b21a8;
+  border: 1px solid #c084fc;
+}
+
+.legend-chip--desparasitacion .legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #9333ea;
+}
+
+.citas-filter-future {
+  display: flex;
+  align-items: center;
+}
+
+.toggle-future-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #103f45;
+  cursor: pointer;
+  background: #ffffff;
+  padding: 8px 16px;
+  border-radius: 12px;
+  border: 1px solid #cbd5e1;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+  transition: all 0.15s ease;
+}
+
+.toggle-future-label:hover {
+  background: #f8fafc;
+}
+
+.toggle-future-label input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: #103f45;
+  cursor: pointer;
+}
+
+/* ==========================================
+   CONTENEDOR DE LA TABLA
+   ========================================== */
+.citas-container {
+  background: #ffffff;
+  border: 1px solid #d6e0e2;
+  border-radius: 20px;
+  box-shadow: 0 8px 18px rgba(31, 63, 68, 0.08);
+  max-width: 1040px;
+  margin: 0 auto;
+  overflow-x: auto;
+}
+
+.citas-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.citas-table th,
+.citas-table td {
+  padding: 16px 20px;
+  font-size: 0.9rem;
+  color: #374151;
+}
+
+.citas-table th {
+  font-weight: 700;
+  color: #103f45;
+  border-bottom: 2px solid #103f45;
+  padding-top: 20px;
+}
+
+.citas-table td {
+  border-bottom: 1px solid #e5e7eb;
+  vertical-align: middle;
+}
+
+.citas-table tr:last-child td {
+  border-bottom: none;
+}
+
+.client-name {
+  display: block;
+  font-weight: 700;
+  color: #0f172a;
+  font-size: 0.95rem;
+}
+
+.pet-sublabel {
+  display: block;
+  font-size: 0.8rem;
+  color: #64748b;
+  margin-top: 2px;
+}
+
+/* ==========================================
+   BADGES DE TIPO DE SERVICIO Y ESTADO (MOCKUP EXACTO)
+   ========================================== */
+.service-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 16px;
+  border-radius: 99px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.service-badge--vacuna {
+  background: linear-gradient(180deg, #e0f2fe 0%, #38bdf8 100%);
+  color: #0369a1;
+  border: 1px solid #0284c7;
+}
+
+.service-badge--desparasitacion {
+  background: linear-gradient(180deg, #f3e8ff 0%, #c084fc 100%);
+  color: #6b21a8;
+  border: 1px solid #9333ea;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 16px;
+  border-radius: 99px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: #000000;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.status-badge--pendiente {
+  background: linear-gradient(180deg, #fffbeb 0%, #facc15 100%);
+  border: 1.5px solid #eab308;
+}
+
+.status-badge--enviado {
+  background: linear-gradient(180deg, #cff4fc 0%, #22d3ee 100%);
+  border: 1.5px solid #06b6d4;
+}
+
+.badge-icon {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+}
+
+/* Columna de acciones */
+.actions-col {
+  text-align: right;
+}
+
+/* ==========================================
+   BOTÓN WHATSAPP
+   ========================================== */
+.btn-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #25D366;
+  color: #ffffff;
+  padding: 6px 14px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(37, 211, 102, 0.2);
+}
+
+.btn-whatsapp:hover {
+  background-color: #1ebc59;
+  transform: translateY(-1px);
+}
+
+.btn-whatsapp svg {
+  width: 16px;
+  height: 16px;
+}
+
+.empty-table-msg {
+  text-align: center;
+  color: #94a3b8;
+  padding: 32px !important;
+  font-style: italic;
+}

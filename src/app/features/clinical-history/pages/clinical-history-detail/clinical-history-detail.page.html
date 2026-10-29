@@ -1,0 +1,477 @@
+<section class="history-page" *ngIf="pet; else loading">
+  <header class="history-page__header">
+    <a (click)="goBackToClient()" class="history-page__back" style="cursor: pointer;">
+      <svg lucideArrowLeft aria-hidden="true"></svg>
+      <span>Volver a Clientes</span>
+    </a>
+
+    <div class="history-page__tabs">
+      <button type="button" class="btn-tab btn-tab--history" [class.is-active]="showHistory" (click)="showHistory = true">
+        Historial
+      </button>
+      <button type="button" class="btn-tab btn-tab--service" [class.is-active]="!showHistory" (click)="showHistory = false">
+        Servicio
+      </button>
+    </div>
+  </header>
+
+  <!-- Tarjeta de información del cliente y la mascota -->
+  <div class="info-shell">
+    <article class="info-card">
+      <div class="info-column">
+        <h2>Cliente</h2>
+        <div class="info-grid">
+          <div class="info-field">
+            <span>Nombres :</span>
+            <strong>{{ client ? (client.nombres + ' ' + client.apellidos) : '-' }}</strong>
+          </div>
+          <div class="info-field">
+            <span>Gmail :</span>
+            <strong>{{ client ? getDisplayEmail(client.correoElectronico) : '-' }}</strong>
+          </div>
+          <div class="info-field">
+            <span>Celular :</span>
+            <strong>{{ client ? client.celular : '-' }}</strong>
+          </div>
+          <div class="info-field">
+            <span>Dirección :</span>
+            <strong>{{ client ? client.direccion : '-' }}</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-card__divider"></div>
+
+      <div class="info-column">
+        <h2>Mascota</h2>
+        <div class="info-grid">
+          <div class="info-field">
+            <span>Nombre :</span>
+            <strong>{{ pet.nombre || '-' }}</strong>
+          </div>
+          <div class="info-field">
+            <span>Edad :</span>
+            <strong>{{ calculateAge(pet.fechaNacimiento) }}</strong>
+          </div>
+          <div class="info-field">
+            <span>Peso :</span>
+            <strong>{{ pet.peso }} {{ getUnidadPesoLabel(pet.unidadPeso) }}</strong>
+          </div>
+          <div class="info-field">
+            <span>Raza :</span>
+            <strong>{{ razasMap[pet.razaId || 0] || 'Desconocida' }}</strong>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <!-- Listado de Historial Clínico (condicionado por showHistory) -->
+  <div class="history-section" *ngIf="showHistory">
+    <div class="history-section__header">
+      <h2>Historial</h2>
+
+      <!-- Filtro por Rango de Fechas -->
+      <div class="history-date-filter">
+        <div class="date-input-group">
+          <label>Desde:</label>
+          <input type="date" [(ngModel)]="startDate" />
+        </div>
+        <div class="date-input-group">
+          <label>Hasta:</label>
+          <input type="date" [(ngModel)]="endDate" />
+        </div>
+        <button *ngIf="startDate || endDate" type="button" class="btn-clear-date" (click)="clearDateFilter()">
+          Limpiar
+        </button>
+      </div>
+
+      <button type="button" class="btn-add-record" (click)="openAddHistoryModal()">
+        <svg lucidePlus aria-hidden="true"></svg>
+        <span>Nuevo Registro</span>
+      </button>
+    </div>
+
+    <div class="records-list" *ngIf="filteredHistoryEntries.length > 0; else emptyRecords">
+      <article class="record-card" *ngFor="let entry of filteredHistoryEntries">
+        <div class="record-card__params">
+          <span>Peso : <strong>{{ entry.peso }} (kg)</strong></span>
+          <span>Temperatura : <strong>{{ entry.temperatura }} °C</strong></span>
+          <span>Edad : <strong>{{ entry.edad }}</strong></span>
+        </div>
+
+        <hr class="record-card__line">
+
+        <div class="record-card__content">
+          <div class="record-card__date">
+            Fecha : <strong>{{ entry.fecha | date:'dd/MM/yyyy' }}</strong>
+          </div>
+          <div class="record-card__details">
+            <strong>Detalles :</strong> {{ entry.detalles }}
+          </div>
+        </div>
+
+        <hr class="record-card__line">
+
+        <div class="record-card__footer">
+          <div class="record-card__cost">
+            Costo : <strong>{{ entry.costo }} Bs.</strong>
+          </div>
+          <div class="record-card__actions">
+            <button type="button" class="btn-action-icon btn-action-icon--edit" (click)="openEditHistoryModal(entry)"
+              aria-label="Editar">
+              <svg lucidePencil aria-hidden="true"></svg>
+            </button>
+            <button type="button" class="btn-action-icon btn-action-icon--delete" (click)="confirmDeleteRecord(entry)"
+              aria-label="Eliminar">
+              <svg lucideTrash2 aria-hidden="true"></svg>
+            </button>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <ng-template #emptyRecords>
+      <div class="empty-records-message">
+        {{ historyEntries.length > 0 ? 'No se encontraron registros de historial en el rango de fechas seleccionado.' : 'No hay registros de historial clínico para esta mascota. ¡Crea uno nuevo!' }}
+      </div>
+    </ng-template>
+  </div>
+
+  <!-- Sección de Servicios (Vacunas / Desparasitaciones - DISEÑO EXACTO MOCKUP) -->
+  <div class="service-section" *ngIf="!showHistory">
+    <div class="service-card">
+      
+      <!-- Fila 1: Categoría programable -->
+      <div class="category-row">
+        <label class="category-label">Categoría programable</label>
+        <select class="select-category" [(ngModel)]="selectedCategory" (change)="onCategoryChange()">
+          <option value="Vacunas">Vacunas</option>
+          <option value="Desparasitaciones">Desparasitaciones</option>
+        </select>
+      </div>
+
+      <!-- Fila 2: Formulario de 4 campos (Selecciona la vacuna..., Fecha, Días, Estado) -->
+      <div class="fields-row">
+        
+        <div class="field-group field-group--product">
+          <label>{{ selectedCategory === 'Vacunas' ? 'Selecciona la vacuna...' : 'Selecciona el desparasitante...' }}</label>
+          <emervet-searchable-select
+            [options]="productOptions"
+            [(ngModel)]="serviceForm.productoAplicado"
+            placeholder="Selecciona..."
+          ></emervet-searchable-select>
+        </div>
+
+        <div class="field-group field-group--date">
+          <label>Fecha</label>
+          <input
+            type="date"
+            class="date-input"
+            [(ngModel)]="serviceForm.fechaAplicacion"
+            (ngModelChange)="onFechaServiceChange($event)"
+          />
+        </div>
+
+        <div class="field-group field-group--dias">
+          <label>Días</label>
+          <input
+            type="number"
+            class="dias-input"
+            min="1"
+            [placeholder]="serviceForm.estado === 'Aplicado' ? 'N/A' : 'Ej. 5, 10'"
+            [ngModel]="serviceForm.dias"
+            (ngModelChange)="onDiasChange($event)"
+            [disabled]="serviceForm.estado === 'Aplicado'"
+          />
+        </div>
+
+        <div class="field-group field-group--estado">
+          <label>Estado</label>
+          <div class="radio-options">
+            <label class="radio-label">
+              <input
+                type="radio"
+                name="estadoRadio"
+                value="Aplicado"
+                [ngModel]="serviceForm.estado"
+                (ngModelChange)="onEstadoChange('Aplicado')"
+              />
+              <span>Aplicado</span>
+            </label>
+            <label class="radio-label">
+              <input
+                type="radio"
+                name="estadoRadio"
+                value="Pendiente"
+                [ngModel]="serviceForm.estado"
+                (ngModelChange)="onEstadoChange('Pendiente')"
+              />
+              <span>Pendiente</span>
+            </label>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Fila 3: Botones Cancelar y Guardar alineados a la derecha -->
+      <div class="form-actions-row">
+        <button type="button" class="btn-pill-cancel" (click)="resetServiceForm()">Cancelar</button>
+        <button type="button" class="btn-pill-save" (click)="saveServiceRecord()">Guardar</button>
+      </div>
+
+      <!-- Fila 4: Recuadro con tabla unificada de registros separada por Aplicados y Pendientes -->
+      <div class="table-card">
+        <table class="unified-services-table">
+          <thead>
+            <tr>
+              <th>Dosis</th>
+              <th>Producto</th>
+              <th>Fecha</th>
+              <th>Estado</th>
+              <th class="actions-col">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- SECCION: APLICADOS -->
+            <tr class="table-section-row table-section-row--aplicados">
+              <td colspan="5">
+                <div class="table-section-header">
+                  <span class="section-badge section-badge--aplicados">●</span>
+                  <strong>Aplicados</strong>
+                  <span class="section-count">({{ appliedServicesList.length }})</span>
+                </div>
+              </td>
+            </tr>
+
+            <tr *ngFor="let item of appliedServicesList">
+              <td>{{ item.dosis }}</td>
+              <td>{{ item.producto }}</td>
+              <td>{{ item.fecha | date:'dd/MM/yyyy' }}</td>
+              <td>
+                <span class="badge-status badge-status--aplicado">
+                  {{ item.estado }}
+                </span>
+              </td>
+              <td class="actions-col">
+                <button type="button" class="btn-delete-pill" (click)="openDeleteServiceModal(item)">
+                  <svg lucideTrash2 aria-hidden="true"></svg>
+                  <span>Eliminar</span>
+                </button>
+              </td>
+            </tr>
+
+            <tr *ngIf="appliedServicesList.length === 0">
+              <td colspan="5" class="empty-table-submsg">
+                No hay registros aplicados de {{ selectedCategory.toLowerCase() }}.
+              </td>
+            </tr>
+
+            <!-- SECCION: PENDIENTES -->
+            <tr class="table-section-row table-section-row--pendientes">
+              <td colspan="5">
+                <div class="table-section-header">
+                  <span class="section-badge section-badge--pendientes">●</span>
+                  <strong>Pendientes</strong>
+                  <span class="section-count">({{ pendingServicesList.length }})</span>
+                </div>
+              </td>
+            </tr>
+
+            <tr *ngFor="let item of pendingServicesList">
+              <td>{{ item.dosis }}</td>
+              <td>{{ item.producto }}</td>
+              <td>{{ item.fecha | date:'dd/MM/yyyy' }}</td>
+              <td>
+                <span
+                  class="badge-status badge-status--pendiente"
+                  (click)="openApplyModal(item)"
+                  style="cursor: pointer"
+                  title="Haz clic para marcar como Aplicado"
+                >
+                  {{ item.estado }}
+                </span>
+              </td>
+              <td class="actions-col">
+                <button type="button" class="btn-delete-pill" (click)="openDeleteServiceModal(item)">
+                  <svg lucideTrash2 aria-hidden="true"></svg>
+                  <span>Eliminar</span>
+                </button>
+              </td>
+            </tr>
+
+            <tr *ngIf="pendingServicesList.length === 0">
+              <td colspan="5" class="empty-table-submsg">
+                No hay registros pendientes de {{ selectedCategory.toLowerCase() }}.
+              </td>
+            </tr>
+
+            <tr *ngIf="filteredServicesList.length === 0">
+              <td colspan="5" class="empty-table-msg">
+                No se encontraron {{ selectedCategory.toLowerCase() }} registradas para esta mascota.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<ng-template #loading>
+  <div class="history-page" style="display: grid; place-items: center; height: 50vh;">
+    <div style="text-align: center; color: #587177;">
+      <p>Cargando información de la mascota...</p>
+    </div>
+  </div>
+</ng-template>
+
+<!-- MODAL: AGREGAR REGISTRO CLÍNICO -->
+<div class="modal-overlay" *ngIf="showAddModal" (click)="closeAddModal()">
+  <div class="modal-container" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h3>Nuevo Registro Clínico</h3>
+      <button type="button" class="btn-close-modal" (click)="closeAddModal()">
+        <svg lucideX aria-hidden="true"></svg>
+      </button>
+    </div>
+
+    <form (ngSubmit)="executeAddRecord()" #addForm="ngForm" class="modal-form">
+      <div class="form-group">
+        <label for="peso">Peso (Kg) *</label>
+        <input type="number" id="peso" name="peso" [(ngModel)]="recordForm.peso" required step="0.1" min="0">
+      </div>
+
+      <div class="form-group">
+        <label for="temperatura">Temperatura (°C) *</label>
+        <input type="number" id="temperatura" name="temperatura" [(ngModel)]="recordForm.temperatura" required step="0.1">
+      </div>
+
+      <div class="form-group">
+        <label for="fecha">Fecha *</label>
+        <input type="date" id="fecha" name="fecha" [(ngModel)]="recordForm.fecha" required>
+      </div>
+
+      <div class="form-group">
+        <label for="costo">Costo (Bs.) *</label>
+        <input type="number" id="costo" name="costo" [(ngModel)]="recordForm.costo" required min="0">
+      </div>
+
+      <div class="form-group form-group--full">
+        <label for="detalles">Detalles Clínicos *</label>
+        <textarea id="detalles" name="detalles" [(ngModel)]="recordForm.detalles" required minlength="5" placeholder="Ingrese los detalles de la consulta..."></textarea>
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="btn-modal-cancel" (click)="closeAddModal()">Cancelar</button>
+        <button type="submit" class="btn-modal-submit" [disabled]="addForm.invalid">
+          <svg lucideSave aria-hidden="true"></svg>
+          <span>Guardar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- MODAL: EDITAR REGISTRO CLÍNICO -->
+<div class="modal-overlay" *ngIf="showEditModal" (click)="closeEditModal()">
+  <div class="modal-container" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h3>Editar Registro Clínico</h3>
+      <button type="button" class="btn-close-modal" (click)="closeEditModal()">
+        <svg lucideX aria-hidden="true"></svg>
+      </button>
+    </div>
+
+    <form (ngSubmit)="executeEditRecord()" #editForm="ngForm" class="modal-form">
+      <div class="form-group">
+        <label for="edit-peso">Peso (Kg) *</label>
+        <input type="number" id="edit-peso" name="peso" [(ngModel)]="recordForm.peso" required step="0.1" min="0">
+      </div>
+
+      <div class="form-group">
+        <label for="edit-temperatura">Temperatura (°C) *</label>
+        <input type="number" id="edit-temperatura" name="temperatura" [(ngModel)]="recordForm.temperatura" required step="0.1">
+      </div>
+
+      <div class="form-group">
+        <label for="edit-fecha">Fecha *</label>
+        <input type="date" id="edit-fecha" name="fecha" [(ngModel)]="recordForm.fecha" required>
+      </div>
+
+      <div class="form-group">
+        <label for="edit-costo">Costo (Bs.) *</label>
+        <input type="number" id="edit-costo" name="costo" [(ngModel)]="recordForm.costo" required min="0">
+      </div>
+
+      <div class="form-group form-group--full">
+        <label for="edit-detalles">Detalles Clínicos *</label>
+        <textarea id="edit-detalles" name="detalles" [(ngModel)]="recordForm.detalles" required minlength="5"></textarea>
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="btn-modal-cancel" (click)="closeEditModal()">Cancelar</button>
+        <button type="submit" class="btn-modal-submit" [disabled]="editForm.invalid">
+          <svg lucideSave aria-hidden="true"></svg>
+          <span>Guardar Cambios</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- MODAL: CONFIRMAR ELIMINAR REGISTRO CLÍNICO -->
+<div class="modal-overlay" *ngIf="showDeleteModal" (click)="closeDeleteModal()">
+  <div class="modal-container modal-container--confirm" (click)="$event.stopPropagation()">
+    <div class="modal-icon">
+      <svg lucideTrash2 aria-hidden="true"></svg>
+    </div>
+
+    <h2>¿Eliminar registro clínico?</h2>
+    <p>¿Estás seguro de que deseas eliminar este registro de historial? Esta acción no se puede deshacer.</p>
+
+    <div class="modal-actions modal-actions--center">
+      <button type="button" class="btn-modal-cancel" (click)="closeDeleteModal()">Cancelar</button>
+      <button type="button" class="btn-modal-delete" (click)="executeDeleteRecord()">Eliminar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL CONFIRMAR CAMBIO DE ESTADO (PENDIENTE A APLICADO) -->
+<div class="modal-overlay" *ngIf="showConfirmApplyModal" (click)="closeApplyModal()">
+  <div class="modal-container modal-container--confirm" (click)="$event.stopPropagation()">
+    <div class="modal-icon modal-icon--success">
+      <svg lucideCheckCircle2 aria-hidden="true"></svg>
+    </div>
+
+    <h2>¿Confirmar aplicación de dosis?</h2>
+    <p *ngIf="serviceToApply">
+      ¿Estás seguro de marcar la dosis de <strong>{{ serviceToApply.producto }}</strong> como <strong>APLICADA</strong>?
+    </p>
+
+    <div class="modal-actions modal-actions--center">
+      <button type="button" class="btn-modal-cancel" (click)="closeApplyModal()">Cancelar</button>
+      <button type="button" class="btn-modal-success" (click)="confirmApplyService()">Confirmar Aplicación</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL CONFIRMAR ELIMINAR REGISTRO DE VACUNA / DESPARASITACIÓN -->
+<div class="modal-overlay" *ngIf="showConfirmDeleteServiceModal" (click)="closeDeleteServiceModal()">
+  <div class="modal-container modal-container--confirm" (click)="$event.stopPropagation()">
+    <div class="modal-icon">
+      <svg lucideTrash2 aria-hidden="true"></svg>
+    </div>
+
+    <h2>¿Eliminar registro de dosis?</h2>
+    <p *ngIf="serviceToDelete">
+      ¿Estás seguro de eliminar el registro de <strong>{{ serviceToDelete.producto }}</strong>? Esta acción no se puede deshacer.
+    </p>
+
+    <div class="modal-actions modal-actions--center">
+      <button type="button" class="btn-modal-cancel" (click)="closeDeleteServiceModal()">Cancelar</button>
+      <button type="button" class="btn-modal-delete" (click)="confirmDeleteService()">Eliminar</button>
+    </div>
+  </div>
+</div>

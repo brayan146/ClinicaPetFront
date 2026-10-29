@@ -1,0 +1,501 @@
+:host {
+    display: block;
+}
+
+.pets-page {
+    display: grid;
+    gap: 16px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.pets-page__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pets-page__header button,
+.btn-primary,
+.icon-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.pets-page__header h1 {
+    margin: 0;
+    font-size: 2rem;
+    color: #123a41;
+}
+
+/* BARRA DE HERRAMIENTAS Y FILTROS */
+.pets-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.pets-toolbar__search {
+    display: flex;
+    align-items: center;
+}
+
+.pets-toolbar__search input {
+    width: min(100%, 280px);
+    height: 40px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    border: 1px solid #c5d1d4;
+    padding: 0 12px;
+    background: #ffffff;
+    color: #1a2f33;
+    font-size: 0.92rem;
+    outline: none;
+    transition: all 0.15s ease;
+}
+
+.pets-toolbar__search input:hover {
+    border-color: #103f45;
+}
+
+.pets-toolbar__search input:focus {
+    border-color: #103f45;
+    box-shadow: 0 0 0 3px rgba(16, 63, 69, 0.12);
+}
+
+.pets-toolbar__filters {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+}
+
+.pets-toolbar__filters select {
+    height: 40px;
+    box-sizing: border-box;
+    padding: 0 12px;
+    border-radius: 10px;
+    border: 1px solid #c5d1d4;
+    background: #ffffff;
+    color: #1a2f33;
+    font-size: 0.9rem;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.pets-toolbar__filters select:hover {
+    border-color: #103f45;
+}
+
+.pets-toolbar__filters select:focus {
+    border-color: #103f45;
+    box-shadow: 0 0 0 3px rgba(16, 63, 69, 0.12);
+}
+
+.pets-toolbar__filter-raza {
+    width: 210px;
+}
+
+/* BOTON ESTATICO LIMPIAR FILTROS */
+.btn-reset-filters {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    height: 40px;
+    box-sizing: border-box;
+    padding: 0 14px;
+    border-radius: 10px;
+    border: 1px solid #c5d1d4;
+    background: #ffffff;
+    color: #4b6267;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-reset-filters:hover {
+    background: #f1f5f9;
+    color: #103f45;
+    border-color: #103f45;
+    box-shadow: 0 2px 6px rgba(16, 63, 69, 0.08);
+}
+
+.btn-reset-filters svg {
+    width: 15px;
+    height: 15px;
+}
+
+/* TABLA DE MASCOTAS */
+.pets-table {
+    background: #f7f9f9;
+    border: 1px solid #c4ccce;
+    border-radius: 18px;
+    padding: 10px 14px;
+    box-shadow: 0 10px 24px rgba(25, 48, 53, 0.12);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.pet-row {
+    cursor: default;
+}
+
+.pet-row:hover {
+    background: rgba(13, 74, 82, 0.02);
+}
+
+.pet-name-link {
+  color: #0d4a52;
+  cursor: pointer;
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 0.15s ease, text-decoration 0.15s ease;
+  display: inline-block;
+}
+
+.pet-name-link:hover {
+  color: #00a2c9;
+  text-decoration: underline;
+}
+
+th,
+td {
+    text-align: left;
+    padding: 12px 10px;
+    border-bottom: 1px solid #ccd6d8;
+    color: #2e4348;
+    font-size: 0.92rem;
+}
+
+th {
+    font-weight: 700;
+    color: #3a575d;
+}
+
+.th-sortable {
+    cursor: pointer;
+    user-select: none;
+    white-space: nowrap;
+    transition: color 0.15s ease;
+}
+
+.th-sortable:hover {
+    color: #0d4a52;
+}
+
+.th-sortable--active {
+    color: #00a2c9;
+}
+
+.sort-icon {
+    margin-left: 6px;
+    font-size: 0.78rem;
+    opacity: 0.7;
+    vertical-align: middle;
+}
+
+.actions {
+    text-align: center;
+    white-space: nowrap;
+}
+
+/* BOTONES DE ACCION UNIFICADOS */
+.icon-btn {
+    border: 1px solid transparent;
+    background: transparent;
+    cursor: pointer;
+    margin: 0 3px;
+    padding: 5px;
+    border-radius: 8px;
+    color: #0d4a52;
+    width: 34px;
+    height: 34px;
+    transition: all 0.2s ease;
+}
+
+.icon-btn:hover {
+    background: #e6f4f2;
+    color: #0d4a52;
+    border-color: #b2dfdb;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(16, 63, 69, 0.15);
+}
+
+.icon-btn svg,
+.btn-primary svg {
+    width: 18px;
+    height: 18px;
+    display: block;
+}
+
+.icon-btn--danger {
+    color: #dc2626;
+}
+
+.icon-btn--danger:hover {
+    background: #fef2f2;
+    color: #b91c1c;
+    border-color: #fca5a5;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(185, 28, 28, 0.18);
+}
+
+.empty {
+    text-align: center;
+    color: #6f7d81;
+}
+
+.btn-primary {
+    height: 40px;
+    padding: 0 14px;
+    border-radius: 8px;
+    font-weight: 700;
+    border: 0;
+    cursor: pointer;
+    background: #0d4a52;
+    color: #eff6f6;
+    box-shadow: 0 6px 14px rgba(13, 74, 82, 0.35);
+}
+
+/* ==========================================
+   PACK DE MODALES EMERGENTES (Form & Confirm)
+   ========================================== */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  animation: fadeIn 0.15s ease-in-out;
+}
+
+.modal-container--form {
+  background-color: #ffffff;
+  width: 90%;
+  max-width: 620px;
+  padding: 28px 32px;
+  border-radius: 20px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  animation: scaleUp 0.15s ease-in-out;
+}
+
+.modal-container--confirm {
+  background-color: #ffffff;
+  width: 90%;
+  max-width: 420px;
+  padding: 36px 32px;
+  border-radius: 20px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  animation: scaleUp 0.15s ease-in-out;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.modal-header .modal-title {
+  color: #162f34;
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.modal-close-btn {
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  line-height: 1;
+  color: #9ca3af;
+  cursor: pointer;
+}
+
+.pet-create-form__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.pet-create-form__full {
+  grid-column: 1 / -1;
+}
+
+.pet-create-form__grid label {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 0.86rem;
+  font-weight: 500;
+  color: #41555a;
+}
+
+.pet-create-form__grid input,
+.pet-create-form__grid select,
+.pet-create-form__grid textarea {
+  height: 38px;
+  padding: 0 12px;
+  border: 1px solid #c6d2d5;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  background-color: #ffffff;
+  color: #203b40;
+  outline: none;
+}
+
+.pet-create-form__grid textarea {
+  height: auto;
+  min-height: 72px;
+  padding-block: 10px;
+  resize: vertical;
+}
+
+.pet-create-form__grid select:invalid,
+.pet-create-form__grid select option[value=""] {
+  color: #9ca3af;
+}
+
+.modal-container--form .form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 24px;
+  width: 100%;
+}
+
+.btn-secondary,
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 34px;
+  padding: 0 16px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  border: 0;
+}
+
+.btn-secondary { background: #ffffff; color: #5b6b70; border: 1px solid #d0d8da; }
+.btn-primary { background: #103f45; color: #f6fbfb; }
+
+.btn-secondary svg, .btn-primary svg { width: 16px; height: 16px; }
+
+.modal-icon { margin-bottom: 16px; }
+.modal-icon svg { width: 68px; height: 68px; color: #b91c1c; }
+
+.modal-container--confirm .modal-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #b91c1c;
+  margin: 0;
+}
+
+.modal-subtitle { font-size: 0.95rem; color: #4b5563; margin: 8px 0 28px 0; }
+
+.modal-buttons { display: flex; gap: 16px; width: 100%; justify-content: center; }
+
+.btn-cancel, .btn-confirm {
+  padding: 11px 28px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  border-radius: 12px;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-cancel { background-color: #ffffff; color: #374151; border: 1px solid #d1d5db; }
+.btn-confirm { background-color: #b91c1c; color: #ffffff; }
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes scaleUp { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+@media (max-width: 860px) {
+    .pets-page__header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .pets-table {
+        overflow-x: auto;
+    }
+
+    table {
+        min-width: 720px;
+    }
+}
+
+/* PAGINACION DE MASCOTAS */
+.pets-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin-top: 24px;
+  padding: 16px 0;
+  border-top: 1px solid #c4ccce;
+}
+
+.btn-pagination {
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid #c5d1d4;
+  background: #ffffff;
+  color: #123a41;
+}
+
+.btn-pagination:hover:not(:disabled) {
+  background: #f4f8f8;
+  border-color: #123a41;
+}
+
+.btn-pagination:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: #f3f4f6;
+  color: #9ca3af;
+  border-color: #e5e7eb;
+}
+
+.pagination-info {
+  font-size: 0.95rem;
+  color: #4b6267;
+}
+
+.pagination-info strong {
+  color: #123a41;
+}

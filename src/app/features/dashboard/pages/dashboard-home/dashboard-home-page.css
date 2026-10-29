@@ -1,0 +1,319 @@
+/* Contenedor principal */
+.dashboard-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 16px;
+  background-color: transparent;
+  color: #123b42;
+  font-family: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* Base para todas las tarjetas */
+.card {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  padding: 24px;
+  border: 1px solid #e2e8f0;
+}
+
+/* Header */
+.header-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f8fafc;
+}
+
+.header-card h1 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.header-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.btn-outline {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border: 1px solid #cbd5e1;
+  background: white;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  color: #0f172a;
+  transition: all 0.2s;
+}
+
+.btn-outline:hover {
+  background: #f1f5f9;
+  border-color: #94a3b8;
+}
+
+.icon-sm {
+  width: 18px;
+  height: 18px;
+}
+
+/* Grid de Estadísticas */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.stat-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+}
+
+.icon-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+}
+
+.icon-box lucide-icon {
+  width: 24px;
+  height: 24px;
+  color: #1e293b;
+}
+
+/* Colores de las cajas de íconos */
+.bg-peach { background-color: #ffedd5; }
+.bg-mint { background-color: #d1fae5; }
+.bg-yellow { background-color: #fef08a; }
+.bg-rose { background-color: #ffe4e6; }
+
+.stat-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-label {
+  font-size: 14px;
+  color: #64748b;
+  margin-bottom: 4px;
+}
+
+.stat-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+/* Grid de Contenido Inferior (Gráfico y Lista) */
+.content-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.list-card {
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+}
+
+/* Headers internos de tarjetas */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+}
+
+.title-group {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.icon-teal {
+  color: #0d9488;
+  margin-top: 2px;
+}
+
+.title-group h2 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.subtitle {
+  margin: 4px 0 0 0;
+  font-size: 13px;
+  color: #94a3b8;
+}
+
+/* Badges (Etiquetas) */
+.badge {
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.badge-light-teal {
+  background-color: #e0f2fe;
+  color: #0369a1;
+}
+
+.badge-orange {
+  background-color: #f59e0b;
+  color: white;
+}
+
+.badge-teal {
+  background-color: #0d9488;
+  color: white;
+}
+
+/* Simulación de gráfico */
+.chart-mockup {
+  width: 100%;
+  height: 200px;
+  position: relative;
+  border-bottom: 1px dashed #e2e8f0;
+}
+
+.mock-svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Lista de citas con scroll interno */
+.appointments-list {
+  display: flex;
+  flex-direction: column;
+  max-height: 250px;
+  overflow-y: auto;
+  padding-right: 6px;
+}
+
+.appointments-list::-webkit-scrollbar {
+  width: 5px;
+}
+
+.appointments-list::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 4px;
+}
+
+.appointments-list::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+.appointments-list::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+.appointment-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.appointment-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.app-details h3 {
+  margin: 0 0 4px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.app-details p {
+  margin: 0;
+  font-size: 12px;
+  color: #64748b;
+}
+
+.owner-name {
+  display: block;
+  font-size: 11px;
+  color: #94a3b8;
+  margin-top: 2px;
+}
+
+.app-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-quick-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background-color: #25D366;
+  color: #ffffff;
+  padding: 4px 10px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.75rem;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(37, 211, 102, 0.2);
+}
+
+.btn-quick-whatsapp:hover {
+  background-color: #1ebc59;
+  transform: translateY(-1px);
+}
+
+.empty-msg {
+  text-align: center;
+  color: #94a3b8;
+  padding: 20px 0;
+  font-style: italic;
+  font-size: 0.9rem;
+}
+
+/* Ajustes responsivos */
+@media (max-width: 1024px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .content-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+  .header-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+}
